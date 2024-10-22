@@ -1,0 +1,22 @@
+name: Trigger Jenkins Job
+
+on:
+  push
+
+jobs:
+  call-jenkins:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger Jenkins Job via API
+      env:
+        JENKINS_URL: ${{ secrets.JENKINS_URL }}
+        JENKINS_USER: ${{ secrets.JENKINS_USER }}
+        JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+        JOB_NAME: 'TestGithubAction'
+      run: |
+        curl -X POST "${JENKINS_URL}/job/${JOB_NAME}/build" \
+        --user "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
+        # --data-urlencode "json={}" \
+        # --header "Jenkins-Crumb:$(curl -u ${JENKINS_USER}:${JENKINS_API_TOKEN} ${JENKINS_URL}/crumbIssuer/api/json | jq -r '.crumb')" \
+        --header "Content-Type: application/json"
