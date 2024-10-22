@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Trigger Jenkins Job via API
         run: |
-          echo "haha triggered!"
+          echo "haha triggered! in main"
