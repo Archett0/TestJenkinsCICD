@@ -1,7 +1,6 @@
 name: Trigger Jenkins Job
 
-on:
-  push
+on: [push, pull_request]
 
 jobs:
   call-jenkins:
