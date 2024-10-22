@@ -17,6 +17,4 @@ jobs:
       run: |
         curl -X POST "${JENKINS_URL}/job/${JOB_NAME}/build" \
         --user "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
-        # --data-urlencode "json={}" \
-        # --header "Jenkins-Crumb:$(curl -u ${JENKINS_USER}:${JENKINS_API_TOKEN} ${JENKINS_URL}/crumbIssuer/api/json | jq -r '.crumb')" \
         --header "Content-Type: application/json"
