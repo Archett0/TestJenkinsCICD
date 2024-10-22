@@ -3,7 +3,7 @@ name: Trigger Jenkins Job
 on: [push, pull_request]
 
 jobs:
-  call-jenkins:
+  call-jenkins-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,8 +12,8 @@ jobs:
         JENKINS_URL: ${{ secrets.JENKINS_URL }}
         JENKINS_USER: ${{ secrets.JENKINS_USER }}
         JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
-        JOB_NAME: 'TestGithubAction'
+        JOB_NAME: ${{ secrets.JOB_NAME }}
+        JOB_TOKEN: ${{ secrets.JOB_TOKEN }}
       run: |
-        curl -X POST "${JENKINS_URL}/job/${JOB_NAME}/build" \
-        --user "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
-        --header "Content-Type: application/json"
+        curl -X POST -L --user "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
+        "${JENKINS_URL}/job/${JOB_NAME}/build?token=${JOB_TOKEN}"
